@@ -1,0 +1,20 @@
+#!/bin/bash
+if git diff --cached|grep 'fbd(\|deb(|debug(' > /dev/null
+then 
+	echo "Commit contains debug"
+	exit 1
+fi
+
+git diff --cached --name-status | while read st file; do
+        # skip deleted files
+        if [ "$st" == 'D' ]
+	then 
+		continue
+	fi
+        # do a check only on the php files
+        if [[ "$file" == *.php ]] && ! php -l "$file"
+	then
+                echo "PHP syntax check failed for file: $file"
+                exit 1
+        fi
+done

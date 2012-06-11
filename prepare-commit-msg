@@ -1,0 +1,7 @@
+#!/bin/bash
+issueNum=`git status -bs|head -n1|sed -e "s/.*issue\([0-9]\{5\}\).*/\1/"`
+if [ ${#issueNum} == 5 ]
+then
+sed -e "s/Issue #)/Issue #$issueNum)/g" < $1 > /tmp/commitMSG
+cp /tmp/commitMSG $1
+fi
