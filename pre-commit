@@ -10,6 +10,15 @@ do
   if [[ "$file" == *.php ]] && ! phpcs --standard=TOL $file
   then  
     invalid=true;
+  else
+    if [[ "$file" == *.js ]] && ! phpcs --standard=TOL $file
+    then
+      invalid=true;
+    fi
+    if [[ "$file" == *.js ]] && ! python `git rev-parse --git-dir`/hooks/gjslint.py --jslint_error all $file
+    then
+      invalid=true;
+    fi
   fi    
 done            
                 
