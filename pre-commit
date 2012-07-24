@@ -7,7 +7,7 @@ fi
 
 for file in `git diff --cached --diff-filter=ACMRTUXB --name-only HEAD`
 do              
-  if [[ "$file" == *.php ]] && ! phpcs --standard=TOL $file
+  if [[ "$file" == *.php ]] || [[ "$file" == *.phtml ]] && ! phpcs --standard=TOL $file
   then
     echo $file
     invalid=true;
@@ -37,7 +37,7 @@ git diff --cached --name-status | while read st file; do
 		continue
 	fi
         # do a check only on the php files
-        if [[ "$file" == *.php ]] && ! php -l "$file"
+        if [[ "$file" == *.php ]] || [[ "$file" == *.phtml ]] && ! php -l "$file"
 	then
                 echo "PHP syntax check failed for file: $file"
                 exit 1
