@@ -8,15 +8,18 @@ fi
 for file in `git diff --cached --diff-filter=ACMRTUXB --name-only HEAD`
 do              
   if [[ "$file" == *.php ]] && ! phpcs --standard=TOL $file
-  then  
+  then
+    echo $file
     invalid=true;
   else
     if [[ "$file" == *.js ]] && ! phpcs --standard=TOL $file
     then
+      echo $file
       invalid=true;
     fi
     if [[ "$file" == *.js ]] && ! python `git rev-parse --git-dir`/hooks/gjslint.py --jslint_error all $file
     then
+      echo $file
       invalid=true;
     fi
   fi    
