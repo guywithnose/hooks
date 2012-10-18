@@ -8,12 +8,12 @@ fi
 for file in `git diff --cached --diff-filter=ACMRTUXB --name-only HEAD`
 do
   extension=`echo $file|awk -F . '{print $2}'`
-  if [[ "$file" == *.php ]] || [[ "$file" == *.phtml ]] && ! phpcs --standard=TOL $file
+  if [[ "$file" == *.php ]] || [[ "$file" == *.phtml ]] && ! phpcs --standard=DWS $file
   then
     echo $file
     invalid=true;
   fi
-  if [[ "$file" == *.js ]] && ! phpcs --standard=TOL $file
+  if [[ "$file" == *.js ]] && ! phpcs --standard=DWS $file
   then
     echo $file
     invalid=true;
@@ -33,7 +33,7 @@ do
     echo $file
     invalid=true;
   fi
-  if [[ "$file" == *.css ]] && ! phpcs --standard=TOL $file
+  if [[ "$file" == *.css ]] && ! phpcs --standard=DWS $file
   then
     echo $file
     invalid=true;
