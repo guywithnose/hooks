@@ -10,8 +10,11 @@ do
   extension=`echo $file|awk -F . '{print $2}'`
   if [[ "$file" == *.php ]] || [[ "$file" == *.phtml ]] && ! phpcs --standard=DWS $file
   then
-    echo $file
-    invalid=true;
+    if [[ "$file" == *.php ]] || [[ "$file" == *.phtml ]] && ! phpcs -n --standard=DWS $file > /dev/null
+    then
+      echo $file
+      invalid=true;
+    fi
   fi
   if [[ "$file" == *.js ]] && ! phpcs --standard=DWS $file
   then
